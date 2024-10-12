@@ -12,7 +12,7 @@ public class CombateMelee : MonoBehaviour
     public float tiempoEntreAtaques;
     public float tiempoSiguienteAtaque;
     private Animator animator;
-    private Enemycontroller enemycontroller;
+    Enemycontroller enemycontroller;
 
     public void Start()
     {
