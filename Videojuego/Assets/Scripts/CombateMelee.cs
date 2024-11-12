@@ -8,6 +8,7 @@ public class CombateMelee : MonoBehaviour
     [SerializeField] private Transform AttackController;
     [SerializeField] private float radio;
     [SerializeField] private float Dano;
+    [SerializeField] private AudioClip WoodSwordSound;
     public float tiempoEntreAtaques;
     public float tiempoSiguienteAtaque;
     private Animator animator;
@@ -35,6 +36,7 @@ public class CombateMelee : MonoBehaviour
     private void Golpe()
     {
         animator.SetTrigger("Golpe");
+        ControladorSonidos.Instance.EjecutarSonido(WoodSwordSound);
         Collider2D[] Objetos = Physics2D.OverlapCircleAll(AttackController.position, radio);
 
         foreach (Collider2D collider2D in Objetos)

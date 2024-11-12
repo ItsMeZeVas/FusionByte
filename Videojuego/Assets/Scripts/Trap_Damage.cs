@@ -5,15 +5,18 @@ using UnityEngine;
 public class Trap_Damage : MonoBehaviour
 {
     [SerializeField]private int damage;
+    private Player_Health health;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Vector2 damageDirection = new Vector2(transform.position.x, 0);
-
             print("collide");
-            collision.gameObject.GetComponent<Player_Health>().takeDamage(damageDirection ,damage);
+            health = collision.gameObject.GetComponent<Player_Health>();
+
+            Vector2 damageDirection = transform.position;
+            health.takeDamage(damageDirection, damage);
+            health.playerDead();
         }
     }
 }

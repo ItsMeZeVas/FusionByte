@@ -8,12 +8,12 @@ public class Character_Controller : MonoBehaviour
     public float JumpForce = 12f;
     public float MaxHoldTime = 0.5f; // Tiempo m�ximo que se puede mantener presionada la tecla de salto
     public LayerMask capaFloor;
-    public int MaxJumps = 2;
+    public int MaxJumps = 1;
     public float fallMultiplier = 2.5f; // Factor que incrementa la velocidad de ca�da
     public float lowJumpMultiplier = 2f; // Factor que desacelera la ca�da cuando se suelta la tecla
 
     private bool LookRight = true;
-    private int RestJumps;
+    private int RestJumps=0;
     private Rigidbody2D rigidbody;
     private BoxCollider2D boxCollider;
     private Player_Health playerHealth;
@@ -24,6 +24,7 @@ public class Character_Controller : MonoBehaviour
 
 
     private Animator animator;
+    [SerializeField] private AudioClip JumpSound;
 
     public void Start()
     {
@@ -48,7 +49,7 @@ public class Character_Controller : MonoBehaviour
 
     void Jump()
     {
-        // Si el personaje est� en el suelo, restablece el n�mero de saltos disponibles
+        // Si el personaje esta en el suelo, restablece el n�mero de saltos disponibles
         if (InFloor())
         {
             RestJumps = MaxJumps;
@@ -67,6 +68,7 @@ public class Character_Controller : MonoBehaviour
             jumpTimeCounter = MaxHoldTime;
             RestJumps--;
             rigidbody.velocity = new Vector2(rigidbody.velocity.x, JumpForce);
+            ControladorSonidos.Instance.EjecutarSonido(JumpSound);
         }
 
         // Mant�n el salto mientras se mantenga presionada la tecla
@@ -89,6 +91,7 @@ public class Character_Controller : MonoBehaviour
         {
             isJumping = false;
         }
+       
     }
 
     void ApplyGravityModifiers()
@@ -126,4 +129,5 @@ public class Character_Controller : MonoBehaviour
             transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         }
     }
+  
 }
