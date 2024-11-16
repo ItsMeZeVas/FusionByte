@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class CombatMagic : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CombatMagic : MonoBehaviour
 
     private Animator animator;
     private Player_Health playerHealth;
+    private bool canAttack = true;
 
     private void Start()
     {
@@ -21,10 +23,12 @@ public class CombatMagic : MonoBehaviour
     {
         if (playerHealth.getRecibiendoDano() == false)
         {
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.O) && canAttack)
             {
+                canAttack = false;
                 animator.SetTrigger("Magia");
                 LaunchMagicAttack();
+                StartCoroutine(Recarga());
             }
         }
     }
@@ -37,5 +41,12 @@ public class CombatMagic : MonoBehaviour
         // Instanciar el proyectil y pasarle la dirección
         GameObject magicAttack = Instantiate(magicAttackPrefab, magicAttackSpawnPoint.position, Quaternion.identity);
         magicAttack.GetComponent<MagicAttack>().SetDirection(direction);
+        
+    }
+
+    private IEnumerator Recarga()
+    {
+        yield return new WaitForSeconds(2);
+        canAttack = true;
     }
 }
