@@ -30,10 +30,8 @@ public class GameManager : MonoBehaviour
 
     public HUD hud;
     public Puntaje hudPuntaje;
-    private int VidasActuales = 5;
     private Collectable_Controller tipo;
     private Checkpoint Checkpoint;
-    private bool isInvincible = false;
 
     private void Awake()
     {

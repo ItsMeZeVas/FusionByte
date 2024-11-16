@@ -15,7 +15,7 @@ public class Character_Controller : MonoBehaviour
 
     private bool LookRight = true;
     private int RestJumps=0;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D playerRigidBody;
     private CapsuleCollider2D capsuleCollider;
     private Player_Health playerHealth;
     private bool isJumping;
@@ -29,7 +29,7 @@ public class Character_Controller : MonoBehaviour
 
     public void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        playerRigidBody = GetComponent<Rigidbody2D>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
         playerHealth = GetComponent<Player_Health>();
@@ -79,7 +79,7 @@ public class Character_Controller : MonoBehaviour
             isJumping = true;
             jumpTimeCounter = MaxHoldTime;
             RestJumps--;
-            rigidbody.velocity = new Vector2(rigidbody.velocity.x, JumpForce);
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, JumpForce);
             ControladorSonidos.Instance.EjecutarSonido(JumpSound);
         }
 
@@ -89,7 +89,7 @@ public class Character_Controller : MonoBehaviour
         {
             if (jumpTimeCounter > 0)
             {
-                rigidbody.velocity = new Vector2(rigidbody.velocity.x, JumpForce);
+                playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, JumpForce);
                 jumpTimeCounter -= Time.deltaTime;
             }
             else
@@ -108,15 +108,15 @@ public class Character_Controller : MonoBehaviour
 
     void ApplyGravityModifiers()
     {
-        if (rigidbody.velocity.y < 0)
+        if (playerRigidBody.velocity.y < 0)
         {
             // Aplica un multiplicador para acelerar la ca�da
-            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            playerRigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        else if (rigidbody.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
+        else if (playerRigidBody.velocity.y > 0 && !Input.GetKey(KeyCode.Space))
         {
             // Aplica un multiplicador para suavizar la ca�da si se suelta la tecla de salto
-            rigidbody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            playerRigidBody.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
@@ -126,8 +126,8 @@ public class Character_Controller : MonoBehaviour
         // Movimiento del personaje
         float inputMovement = Input.GetAxis("Horizontal");
         animator.SetFloat("Horizontal", Mathf.Abs(inputMovement));
-        animator.SetFloat("VelocidadY", rigidbody.velocity.y);
-        rigidbody.velocity = new Vector2(inputMovement * Speed, rigidbody.velocity.y);
+        animator.SetFloat("VelocidadY", playerRigidBody.velocity.y);
+        playerRigidBody.velocity = new Vector2(inputMovement * Speed, playerRigidBody.velocity.y);
         Orientation(inputMovement);
         //animator.SetBool("RecibeDano", playerHealth.getRecibiendoDano());
     }
