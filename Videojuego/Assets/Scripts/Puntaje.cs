@@ -20,15 +20,15 @@ public class Puntaje : MonoBehaviour
         {
             Estrellas[0].SetActive(true);
         }
-        if (cantidad >=1&&cantidad<=2)
+        else if (cantidad >= 1 && cantidad <= 2)
         {
             Estrellas[1].SetActive(true);
         }
-        if (cantidad >= 3 && cantidad <= 4)
+        else if (cantidad >= 3 && cantidad <= 4)
         {
             Estrellas[2].SetActive(true);
         }
-        if (cantidad > 5)
+        else if (cantidad >= 5)
         {
             Estrellas[3].SetActive(true);
         }
