@@ -39,6 +39,7 @@ public class Character_Controller : MonoBehaviour
     {
         if (playerHealth.getRecibiendoDano() == false)
         {
+            print("Saltos restantes: " + RestJumps);
             Jump();
         }
         ApplyGravityModifiers();
@@ -54,8 +55,8 @@ public class Character_Controller : MonoBehaviour
 
     bool InFloor()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, new Vector2(capsuleCollider.bounds.size.x - 0.1f , capsuleCollider.bounds.size.y), 0f, Vector2.down, 1f, capaFloor);
-        Debug.DrawRay(capsuleCollider.bounds.center, Vector2.down * 1f, Color.red);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, new Vector2(capsuleCollider.bounds.size.x, capsuleCollider.bounds.size.y), 0f, Vector2.down, 0.005f, capaFloor);
+        Debug.DrawRay(capsuleCollider.bounds.center, Vector2.down * 0.8f, Color.red);
         return raycastHit.collider != null;
     }
 
@@ -74,11 +75,11 @@ public class Character_Controller : MonoBehaviour
         }
 
         // Inicia el salto
-        if (Input.GetKeyDown(KeyCode.Space) && RestJumps > 0 && !recibiendoDano)
+        if (Input.GetKeyDown(KeyCode.Space) && RestJumps > 0)
         {
+            RestJumps--;
             isJumping = true;
             jumpTimeCounter = MaxHoldTime;
-            RestJumps--;
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, JumpForce);
             ControladorSonidos.Instance.EjecutarSonido(JumpSound);
         }

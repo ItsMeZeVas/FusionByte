@@ -276,7 +276,7 @@ MonoBehaviour:
   capaFloor:
     serializedVersion: 2
     m_Bits: 64
-  MaxJumps: 1
+  MaxJumps: 2
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   JumpSound: {fileID: 8300000, guid: f1d7c8db7392a444992e3a535ee4061e, type: 3}
