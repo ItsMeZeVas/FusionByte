@@ -15,7 +15,9 @@ public class Enemycontroller : MonoBehaviour
     private Animator animator;
     private BoxCollider2D boxCollider;
 
-    [SerializeField] private float vida = 100;
+    [SerializeField] private float maxHealth = 100;
+    private float currentHealth = 100;
+
     [SerializeField] private Transform player ;
     [SerializeField] private float speed = 2.0f;
     [SerializeField] private float detectionRadius = 1.0f;
@@ -27,8 +29,8 @@ public class Enemycontroller : MonoBehaviour
     bool lookLeft = true;
     private bool isDead = false;
     private bool recibiendoDano;
-
-
+    private Vector2 posicionInicial;
+    private Player_Health playerHealth;
 
     private void Start()
     {
@@ -36,12 +38,25 @@ public class Enemycontroller : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        
+        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Player_Health>();
+      
     }
 
+    private void Awake()
+    {
+        posicionInicial = transform.position;
+        print(posicionInicial);
+        currentHealth = maxHealth;
+    }
     private void Update()
     {
         movementAndDetection();
-
+        if (playerHealth.getIsDead())
+        {
+            resetEnemy();
+        }
+        
     }
 
     private void OnDrawGizmosSelected()
@@ -90,20 +105,20 @@ public class Enemycontroller : MonoBehaviour
 
         do
         {
-            if (vida < Dano)
+            if (currentHealth < Dano)
             {
-                vida = 0;
+                currentHealth = 0;
             }
             else
             {
-                vida -= Dano;
+                currentHealth -= Dano;
             }
             recibiendoDano = true;
-        } while (vida > 0 && !recibiendoDano && !isDead);
+        } while (currentHealth > 0 && !recibiendoDano && !isDead);
 
         recibiendoDano = false;
 
-        if (vida <= 0 || isDead)
+        if (currentHealth <= 0 || isDead)
         {
             Muerte();
         }
@@ -121,5 +136,16 @@ public class Enemycontroller : MonoBehaviour
     {
         return isDead;
     }
+     public void resetEnemy()
+    {
+        rb.velocity = Vector2.zero;
+        transform.position = posicionInicial;
+        currentHealth = maxHealth;
+        boxCollider.enabled = true;
+        isDead = false;
+        animator.SetBool("isDead", isDead);
+ 
+    }
+
 }
 

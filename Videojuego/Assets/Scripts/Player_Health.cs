@@ -117,6 +117,10 @@ public class Player_Health : MonoBehaviour
         return recibiendoDano;
     }
 
+    public bool getIsDead()
+    {
+        return isDead;
+    }
     public void playerDead()
     {
         if (currentHealth <= 0 && !isDead)
