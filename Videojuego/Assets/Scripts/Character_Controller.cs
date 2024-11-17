@@ -25,7 +25,8 @@ public class Character_Controller : MonoBehaviour
 
     private Animator animator;
     [SerializeField] private AudioClip JumpSound;
-  
+
+
 
     public void Start()
     {
