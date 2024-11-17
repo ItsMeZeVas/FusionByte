@@ -63,8 +63,8 @@ public class Character_Controller : MonoBehaviour
 
     void Jump()
     {
-        // Si el personaje esta en el suelo, restablece el n�mero de saltos disponibles
-        if (InFloor())
+        // Si el personaje esta en el suelo y no está saltando, restablece el n�mero de saltos disponibles
+        if (InFloor() && !isJumping)
         {
             RestJumps = MaxJumps;
             animator.SetBool("InFloor",true);
@@ -133,7 +133,7 @@ public class Character_Controller : MonoBehaviour
         Orientation(inputMovement);
         //animator.SetBool("RecibeDano", playerHealth.getRecibiendoDano());
     }
-
+        
     void Orientation(float inputMovement)
     {
         // Orientaci�n del personaje
