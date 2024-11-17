@@ -14,11 +14,13 @@ public class CombateMelee : MonoBehaviour
     private Animator animator;
     private Enemycontroller enemycontroller;
     private bool canAttackMelee = true;
-
-
+    private Character_Controller characterController;
+    private Rigidbody2D rb;
     public void Start()
     {
+        characterController = GetComponent<Character_Controller>();
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void Update()
@@ -29,10 +31,13 @@ public class CombateMelee : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P)&&tiempoSiguienteAtaque<=0 && canAttackMelee)
         {
+            characterController.enabled = false;
+            rb.velocity = Vector2.zero;
             canAttackMelee = false; 
             Golpe();
             tiempoSiguienteAtaque = tiempoEntreAtaques;
             StartCoroutine(Recarga());
+            
         }
     }
     private void Golpe()
@@ -63,8 +68,9 @@ public class CombateMelee : MonoBehaviour
 
     private IEnumerator Recarga()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
         canAttackMelee = true;
+        characterController.enabled = true;
     }
 }
 

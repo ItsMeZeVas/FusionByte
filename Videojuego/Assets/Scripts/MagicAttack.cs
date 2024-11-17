@@ -9,6 +9,13 @@ public class MagicAttack : MonoBehaviour
 
     private int direction = 1; // 1 para derecha, -1 para izquierda
 
+    private void Start()
+    {
+        Destroy(gameObject, 0.75f);
+    }
+
+
+
     private void Awake()
     {
         if (Instance == null)
