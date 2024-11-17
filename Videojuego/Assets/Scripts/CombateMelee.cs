@@ -13,10 +13,11 @@ public class CombateMelee : MonoBehaviour
     public float tiempoSiguienteAtaque;
     private Animator animator;
     private Enemycontroller enemycontroller;
+    private bool canAttackMelee = true;
+
 
     public void Start()
     {
-
         animator = GetComponent<Animator>();
     }
 
@@ -26,11 +27,12 @@ public class CombateMelee : MonoBehaviour
         {
             tiempoSiguienteAtaque -= Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.P)&&tiempoSiguienteAtaque<=0)
+        if (Input.GetKeyDown(KeyCode.P)&&tiempoSiguienteAtaque<=0 && canAttackMelee)
         {
-            
+            canAttackMelee = false; 
             Golpe();
             tiempoSiguienteAtaque = tiempoEntreAtaques;
+            StartCoroutine(Recarga());
         }
     }
     private void Golpe()
@@ -57,6 +59,12 @@ public class CombateMelee : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(AttackController.position, radio);
+    }
+
+    private IEnumerator Recarga()
+    {
+        yield return new WaitForSeconds(2);
+        canAttackMelee = true;
     }
 }
 
