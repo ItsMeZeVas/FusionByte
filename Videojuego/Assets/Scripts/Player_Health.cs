@@ -50,11 +50,6 @@ public class Player_Health : MonoBehaviour
     private void Update()
     {
         playerDead();
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            gameManager.Respawn();
-        }
     }
 
     public void takeDamage(Vector2 direccion, int damage)
