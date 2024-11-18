@@ -16,11 +16,17 @@ public class Checkpoint : MonoBehaviour
     private Character_Controller characterController;
     private Rigidbody2D characterRB;
     private GameManager gameManager;
+    private GameObject[] enemys;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        enemys = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -38,6 +44,12 @@ public class Checkpoint : MonoBehaviour
 
             if (isEndCheckpoint)
             {
+                for (int i = 0;  i < enemys.Length; i++)
+                {
+                    Enemycontroller controller = enemys[i].GetComponent<Enemycontroller>();
+                    controller.enabled = false;
+                }
+
                 characterRB.velocity = Vector2.zero;
                 characterController.enabled = false;
                 StartCoroutine(TransicionFinal());

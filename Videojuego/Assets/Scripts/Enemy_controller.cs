@@ -140,7 +140,7 @@ public class Enemycontroller : MonoBehaviour
     {
         return isDead;
     }
-     public void resetEnemy()
+    public void resetEnemy()
     {
         rb.velocity = Vector2.zero;
         transform.position = posicionInicial;

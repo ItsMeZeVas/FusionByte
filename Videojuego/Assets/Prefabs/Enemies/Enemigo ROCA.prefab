@@ -175,8 +175,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   player: {fileID: 352378045938702596, guid: 64436f6120a04864691642202602d005, type: 3}
-  speed: 1.5
-  detectionRadius: 5
+  speed: 3
+  detectionRadius: 9
   enemyType: 2
 --- !u!95 &7982359194139508460
 Animator:
