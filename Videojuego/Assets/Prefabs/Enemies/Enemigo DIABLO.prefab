@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -877576982, guid: e1d43fa1d3179214c8569f88cdd7e155, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   player: {fileID: 0}
-  speed: 10
+  speed: 4
   detectionRadius: 10
   enemyType: 4
 --- !u!95 &7982359194139508460
@@ -188,7 +188,7 @@ Animator:
   m_GameObject: {fileID: 2085918921609929443}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 8b58519fa479c524fb0372601d6ae096, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9d08969243a8de84d8e60f7297c8bd0e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

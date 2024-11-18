@@ -51,12 +51,16 @@ public class Enemycontroller : MonoBehaviour
     }
     private void Update()
     {
-        movementAndDetection();
         if (playerHealth.getIsDead())
         {
             resetEnemy();
         }
         
+    }
+
+    private void FixedUpdate()
+    {
+        movementAndDetection();
     }
 
     private void OnDrawGizmosSelected()
