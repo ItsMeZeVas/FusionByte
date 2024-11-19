@@ -12,10 +12,13 @@ public class Menu_Pausa : MonoBehaviour
     [SerializeField] private GameObject canva;
     [SerializeField] private Scene_Manager sceneManager;
     private GameManager gamemanager;
+    private GameObject[] enemys;
+
     void Start()
     {
         canva.SetActive(false);
         gamemanager = GetComponent<GameManager>();
+        enemys = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
 
@@ -58,11 +61,19 @@ public class Menu_Pausa : MonoBehaviour
     }
 
 
+
+
     public void Reiniciar()
     {
+        
         canva.SetActive(false);
+        Invoke("RespawnFromGameManager", 0.1f);
+        for (int i = 0; i < enemys.Length; i++)
+        {
+            Enemycontroller controller = enemys[i].GetComponent<Enemycontroller>();
+            controller.resetEnemy();
+        }
         Time.timeScale = 1f;
-        gamemanager.RespawnPlayer();
     }
 
 
@@ -71,6 +82,11 @@ public class Menu_Pausa : MonoBehaviour
         canva.SetActive(false);
         Time.timeScale = 1f;
         sceneManager.GameStart();
+    }
+
+    private void RespawnFromGameManager()
+    {
+        gamemanager.RespawnPlayer();
     }
 }
 
